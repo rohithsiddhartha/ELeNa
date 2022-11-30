@@ -5,7 +5,7 @@ import numpy as np
 
 # Co-ordinates of UMass Amherst
 initial_point = (42.3867637, -72.5322402) 
-google_api_key = "AIzaSyCC19S4I6tEZYE9Iv89zhsNRixctc6gp_Dc"
+google_api_key = "AIzaSyCC19S4I6tEZYE9Iv4zhsNRixctc6gp_Dc"
 radius = 6371008.8 
 #Coordinates of the destination (home)
 end_point = (42.458867036514775, -72.57851963471636)
@@ -36,6 +36,8 @@ for node, data in G.nodes(data=True):
     data['dist_from_dest'] = dist_nodes(last_lat,last_long,node_lat,node_long)
 
 class Graph:
+
+  """Class that offers the tools to make a graph using elevation information specific to a chosen location."""
   def __init__(self):
     self.G = None
     self.initial_point = (42.3867637, -72.5322402) # Co-ordinates of UMass Amherst
@@ -72,17 +74,22 @@ class Graph:
         node_long = self.G.nodes[node]['y']
         last_lat = end_node['x']
         last_long = end_node['y']
-        data['dist_from_dest'] = self.dist_nodes(last_lat,last_long,node_lat,node_long)
+        data['dist_from_dest'] = self.distance(last_lat,last_long,node_lat,node_long)
     return self.G
   
   def get_graph(self, dest_node):
-    print("Fetching the Map")
-    self.G = ox.graph_from_point(self.initial_point, dist=20000, network_type='walk')
 
-    # appending elevation data to each node and populating the graph
-    self.G = ox.add_node_elevations(G, api_key=self.gmap_api_key) 
-    pkl.dump(self.G, open(self.saved_map_path, "wb"))
-    print("Stored the Map") 
+    if not self.isMapLoaded:
+      print("Fetching the Map")
+      self.G = ox.graph_from_point(self.initial_point, dist=20000, network_type='walk')
+
+      # appending elevation data to each node and populating the graph
+      self.G = ox.add_node_elevations(G, api_key=self.gmap_api_key) 
+      pkl.dump(self.G, open(self.saved_map_path, "wb"))
+      print("Stored the Map")
+    else:
+      self.G = pkl.load(open(self.saved_map_path, "rb"))
+      self.G = ox.add_edge_grades(self.G)
     return self.get_distance_from_dest(dest_node)
 
   
