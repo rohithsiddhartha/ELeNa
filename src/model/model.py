@@ -65,5 +65,24 @@ class Graph:
     temp2 = 2 * np.arctan2(np.sqrt(temp1), np.sqrt(1 - temp1))
     return radius * temp2
   
+  def get_distance_from_dest(self, dest_node):
+    end_node = self.G.nodes[ox.get_nearest_node(self.G, point=dest_node)]
+    for node, data in self.G.nodes(data=True):
+        node_lat = self.G.nodes[node]['x']
+        node_long = self.G.nodes[node]['y']
+        last_lat = end_node['x']
+        last_long = end_node['y']
+        data['dist_from_dest'] = self.dist_nodes(last_lat,last_long,node_lat,node_long)
+    return self.G
+  
+  def get_graph(self, dest_node):
+    print("Fetching the Map")
+    self.G = ox.graph_from_point(self.initial_point, dist=20000, network_type='walk')
+
+    # appending elevation data to each node and populating the graph
+    self.G = ox.add_node_elevations(G, api_key=self.gmap_api_key) 
+    pkl.dump(self.G, open(self.saved_map_path, "wb"))
+    print("Stored the Map") 
+    return self.get_distance_from_dest(dest_node)
 
   
