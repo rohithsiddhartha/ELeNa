@@ -4,6 +4,12 @@ from abc import abstractmethod
 from src import *
 from abc import ABC, abstractmethod
 from src.model import observable
+from flask import Flask, render_template, request, jsonify
+from datetime import datetime
+
+# from src.View.Observer import Observer
+from .. import app
+import json
 
 class Observer:
 
@@ -11,13 +17,6 @@ class Observer:
     def update(self, observable):
         pass
 
-
-from flask import Flask, render_template, request, jsonify
-from datetime import datetime
-
-# from src.View.Observer import Observer
-from .. import app
-import json
 
 class MapView(Observer):
 
