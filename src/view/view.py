@@ -1,21 +1,11 @@
 #Implement view
 
-from abc import abstractmethod
-from src import *
-from abc import ABC, abstractmethod
-from src.model import observable
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 
-# from src.View.Observer import Observer
+from src.view.observer import Observer
 from .. import app
 import json
-
-class Observer:
-
-    @abstractmethod
-    def update(self, observable):
-        pass
 
 
 class MapView(Observer):
