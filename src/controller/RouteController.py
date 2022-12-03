@@ -38,8 +38,14 @@ class RouteController:
     def print_route_attributes(self, path):
         """
         Displays the information about the path.
+
+        Parameters
+        ----------
+            path: the path for which the information needs to be displayed
         """
 
+        print("Total Route Distance: " + str(path.get_distance()))
+        print("Elevation Gain of the Route: " + str(path.get_gain()))
 
     def calculate_final_route(self, start_point, end_point, deviation_percent, minmax_elev_gain, map_view):
         """
@@ -49,7 +55,11 @@ class RouteController:
         self.shortest_path = self.calculate_shortest_path(start_point, end_point)
         self.print_route_attributes(self.shortest_path)
 
-        self.algorithm_model.set_path_limit(float(deviation_percent))
+        if deviation_percent == "100":
+            self.shortest_path.register(map_view)
+            return
+
+        self.algorithm_model.set_path_limit(float(deviation_percent) / 100.0)
         self.algorithm_model.set_elevation_strategy(minmax_elev_gain)
         self.algorithm_model.set_algo_flag(2)
 
