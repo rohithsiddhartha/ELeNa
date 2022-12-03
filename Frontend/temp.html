@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>EleNa</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+  <body>
+
+    <div class="title" background="black"><h2 style="color: white;">EleNa - Elevation based-application</h2></div>
+
+    <div class="data">
+        <div class="row">
+            <div class="col-25">
+                <label for="start">Start Location</label>
+            </div>
+            <div class="col-25">
+                <label for="end">End Location</label>
+            </div>
+            <div class="col-25">
+                <label for="algo">Algorithm</label>
+            </div>
+            <div class="col-25">
+                <label for="optimization">Optimization</label>
+            </div>
+            <div class="col-25">
+                <label for="deviation">Deviation Limit (x%)</label>
+            </div>
+            <div class="col-25">
+                <label for="transportation">Transportation</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <input type="text" id="start" name="firstname" placeholder="Start Location">
+            </div>
+            <div class="col-25">
+                <input type="text" id="end" name="firstname" placeholder="End Location">
+            </div>
+            <div class="col-25">
+                <input type="text" id="algo" name="firstname" placeholder="A-star">
+            </div>
+            <div class="col-25">
+                <input type="text" id="optimization" name="firstname" placeholder="Minimise Elevation Gain">
+            </div>
+            <div class="col-25">
+                <input type="text" id="deviation" name="firstname" placeholder="30">
+            </div>
+            <div class="col-25">
+                <input type="text" id="transportation" name="firstname" placeholder="walk">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="map"></div>
+    
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      defer
+    ></script>
+
+    <!-- Load our React component. -->
+    <script src="temp.js"></script>
+    <script src="map.js"></script>
+
+  </body>
+</html>
