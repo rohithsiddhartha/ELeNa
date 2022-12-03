@@ -1,0 +1,5 @@
+osmnx~=1.0.1
+networkx~=2.5.1
+Flask~=1.1.2
+geopy~=2.1.0
+googlemaps
