@@ -33,6 +33,7 @@ class AlgorithmController():
         self.elevation_gain = elevation_gain
         self.path_limit = path_limit
         self.algo_flag = algo_flag
+        self.scaling_factor = 100
         self.model = AlgorithmModel()
 
     def calculate_elevation_path(self, Graph, source, target, heuristic, weight):
@@ -45,6 +46,9 @@ class AlgorithmController():
             source: starting point
             destination: final destination point
         """
+
+        if source not in Graph or target not in Graph:
+            return
 
         weight = _weight_function(Graph, weight)
         cnt = count()
@@ -61,6 +65,13 @@ class AlgorithmController():
                     node = visited_parent[node]
                 path.reverse()
                 return path
+
+            if current_node in visited_parent:
+                if visited_parent[current_node] is None:
+                    continue
+                qcost, h = enqueued[current_node]
+                if qcost < distance:
+                    continue
 
             visited_parent[current_node] = parent_node
             for neighbor, w in Graph[current_node].items():
