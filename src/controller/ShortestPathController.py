@@ -25,5 +25,7 @@ class ShortestPathController:
         path_model.set_end_location(self.end_location)
         path_model.set_elevation_gain(self.model.get_path_weight(self.G, self.shortest_path, ELEVATION_GAIN))
         path_model.set_drop(0)
+        path_model.set_path([[self.G.nodes[node]['x'], self.G.nodes[node]['y']]
+                                            for node in self.shortest_path])
 
         return path_model
