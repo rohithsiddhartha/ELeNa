@@ -4,6 +4,10 @@ from src.Model.AlgorithmModel import AlgorithmModel
 from src.Model.PathModel import PathModel
 from src.Model.Observable import Observable
 
+ELEVATION_GAIN = "elevation_gain"
+SHORTEST = "Shortest Route"
+LENGTH = "length"
+
 class ShortestPathController:
 
     def __init__(self, G):
