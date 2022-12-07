@@ -9,7 +9,9 @@ SHORTEST = "Shortest Route"
 LENGTH = "length"
 
 class ShortestPathController:
-
+    """
+    Initializing shortest_path, start location, end location and Algorithm model
+    """
     def __init__(self, G):
         self.G = G
         self.shortest_path = None
@@ -17,7 +19,10 @@ class ShortestPathController:
         self.start_location = None
         self.end_location = None
         self.model = AlgorithmModel()
-
+    
+    """
+    Method to compute shortest path using weights on the edges.
+    """
     def get_shortest_path(self, start, end):
         self.start_location, _ = ox.get_nearest_node(self.G, point=start, return_dist=True)
         self.end_location, _ = ox.get_nearest_node(self.G, point=end, return_dist=True)
