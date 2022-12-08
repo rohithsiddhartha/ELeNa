@@ -51,6 +51,10 @@ class AlgorithmController():
         if source not in Graph or target not in Graph:
             return
 
+        if heuristic is None:
+            def heuristic(u, v):
+                return 0
+
         weight = _weight_function(Graph, weight)
         cnt = count()
         path_queue = [(0, next(cnt), source, 0, None)]
@@ -97,7 +101,7 @@ class AlgorithmController():
         if self.elevation_strategy == MINIMIZE:
             minmax = 1
         else:
-            minmax = 0
+            minmax = -1
 
         self.elevation_path = nx.shortest_path(self.graph, source=self.origin, target=self.destination,
                                                weight=LENGTH)
