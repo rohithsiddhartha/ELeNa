@@ -46,6 +46,7 @@ class RouteController:
 
         print("Total Route Distance: " + str(path.get_distance()))
         print("Elevation Gain of the Route: " + str(path.get_gain()))
+        print("Algorithm Used to Calculate Route: " + path.get_algo())
 
     def calculate_final_route(self, start_point, end_point, deviation_percent, minmax_elev_gain, map_view):
         """
@@ -57,6 +58,7 @@ class RouteController:
 
         if deviation_percent == "100":
             self.shortest_path.register(map_view)
+            self.shortest_path.state_changed()
             return
 
         self.algorithm_model.set_path_limit(float(deviation_percent) / 100.0)
