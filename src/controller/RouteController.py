@@ -1,11 +1,11 @@
-from src.model.AlgorithmModel import AlgorithmModel
-from src.model.MapGraphModel import MapGraphModel
+from src.model.algo_model import AlgorithmModel
+from src.model.map_model import Graph
 from src.controller.ShortestPathController import ShortestPathController
 from src.controller.AlgorithmController import AlgorithmController
 
 class RouteController:
     """
-    Controller Class to modify the route models
+        Controller Class to modify the route models
     """
     def __init__(self):
         """
@@ -20,7 +20,7 @@ class RouteController:
         This method gets the shortest path model based on the starting and ending coordinates.
         """
 
-        self.algorithm_model.set_graph(MapGraphModel().get_map_graph(destination))
+        self.algorithm_model.set_graph(Graph().get_map_graph(destination))
         shortestPathController = ShortestPathController(self.algorithm_model.get_graph())
         return shortestPathController.get_shortest_path(source, destination)
 

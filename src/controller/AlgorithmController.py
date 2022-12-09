@@ -3,8 +3,8 @@ import osmnx as ox
 from heapq import heappush, heappop
 from itertools import count
 from networkx.algorithms.shortest_paths.weighted import _weight_function
-from src.model.AlgorithmModel import AlgorithmModel
-from src.model.PathModel import *
+from src.model.algo_model import AlgorithmModel
+from src.model.path_model import *
 import networkx as nx
 
 MAXIMIZE = "max"
@@ -120,7 +120,7 @@ class AlgorithmController():
             self.scaling_factor = self.scaling_factor*5
 
         # Configure the path model - setting appropriate attributes
-        path_model = PathModel()
+        path_model = Path()
         path_model.set_algo(str(self.algo_flag))
         path_model.set_elevation_gain(self.model.get_path_weight(self.graph, self.elevation_path, ELEVATION_GAIN))
         path_model.set_drop(0)
