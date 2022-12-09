@@ -1,6 +1,6 @@
 # Entry point for the application.
 
-from . import app
+from . import App
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import googlemaps
