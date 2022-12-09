@@ -28,7 +28,7 @@ class ShortestPathController:
         self.end_location, _ = ox.get_nearest_node(self.G, point=end, return_dist=True)
         self.shortest_path = nx.shortest_path(self.G, self.start_location, self.end_location, weight=LENGTH)
 
-        path_model = PathModel()
+        path_model = Path()
         path_model.set_algo(SHORTEST)
         path_model.set_start_location(self.start_location)
         path_model.set_end_location(self.end_location)

@@ -29,7 +29,7 @@ class RouteController:
             The Shortest Path model
         """
 
-        self.algorithm_model.set_graph(Graph().get_map_graph(destination))
+        self.algorithm_model.set_graph(Graph().get_graph(destination))
         shortestPathController = ShortestPathController(self.algorithm_model.get_graph())
         return shortestPathController.get_shortest_path(source, destination)
 
