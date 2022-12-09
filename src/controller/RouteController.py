@@ -77,6 +77,7 @@ class RouteController:
 
         # Shortest path calculation
         self.shortest_path = self.calculate_shortest_path(start_point, end_point)
+        print("For Shortest path:")
         self.print_route_attributes(self.shortest_path)
 
         # No upper limit on path so should return the shortest path irrespective of elevation gain
@@ -92,6 +93,7 @@ class RouteController:
 
         # Elevation gain shortest path calculation
         self.elevation_path = self.calcuate_elevation_path()
+        print("For Final Elevation path:")
         self.print_route_attributes(self.elevation_path)
 
         # Linking the view with the path model
