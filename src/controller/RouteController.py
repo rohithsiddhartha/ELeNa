@@ -18,6 +18,15 @@ class RouteController:
     def calculate_shortest_path(self, source, destination):
         """
         This method gets the shortest path model based on the starting and ending coordinates.
+
+        Parameters
+        ----------
+            source: starting point
+            destination:   final destination point
+
+        Returns
+        -------
+            The Shortest Path model
         """
 
         self.algorithm_model.set_graph(Graph().get_map_graph(destination))
@@ -27,6 +36,10 @@ class RouteController:
     def calcuate_elevation_path(self):
         """
         This method gets the elevation gain path model based on the source and destination coordinates.
+
+        Returns
+        -------
+            Elevation gain Shortest Path model
         """
 
         algorithmController = AlgorithmController(self.algorithm_model.get_graph(), self.shortest_path.get_distance(),
@@ -44,6 +57,7 @@ class RouteController:
             path: the path for which the information needs to be displayed
         """
 
+        # Printing the path details
         print("Total Route Distance: " + str(path.get_distance()))
         print("Elevation Gain of the Route: " + str(path.get_gain()))
         print("Algorithm Used to Calculate Route: " + path.get_algo())
@@ -51,23 +65,36 @@ class RouteController:
     def calculate_final_route(self, start_point, end_point, deviation_percent, minmax_elev_gain, map_view):
         """
         This method gets the final shortest path model with desired elevation with in path distance deviation limit provided.
+
+        Parameters
+        ----------
+            start_point: Source point
+            end_point: Destination point
+            deviation_percent: Specifies the upper limit for the path distance being calculated
+            minmax_elev_gain: Maximum or minimum elevation gain that is requested by the user.
+            map_view:MapView view
         """
 
+        # Shortest path calculation
         self.shortest_path = self.calculate_shortest_path(start_point, end_point)
         self.print_route_attributes(self.shortest_path)
 
+        # No upper limit on path so should return the shortest path irrespective of elevation gain
         if deviation_percent == "100":
             self.shortest_path.register(map_view)
             self.shortest_path.state_changed()
             return
 
+        # Configuring the algorith model to calculate the path
         self.algorithm_model.set_path_limit(float(deviation_percent) / 100.0)
         self.algorithm_model.set_elevation_strategy(minmax_elev_gain)
         self.algorithm_model.set_algo_flag(2)
 
+        # Elevation gain shortest path calculation
         self.elevation_path = self.calcuate_elevation_path()
         self.print_route_attributes(self.elevation_path)
 
+        # Linking the view with the path model
         self.shortest_path.register(map_view)
         self.shortest_path.state_changed()
         self.elevation_path.register(map_view)
