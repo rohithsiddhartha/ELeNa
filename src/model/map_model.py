@@ -9,15 +9,15 @@ class Graph:
   """Class that offers the tools to make a graph using elevation information specific to a chosen location."""
   def __init__(self):
     self.G = None
-    self.initial_point = (42.3867637, -72.5322402) 
     # Co-ordinates of UMass Amherst
+    self.initial_point = (42.3867637, -72.5322402) 
     self.saved_map_path = "src/graph.p"
     self.gmap_api_key = "AIzaSyCC19S4I6tEZYE9Iv4zhsNRixctc6gp_Dc"
     self.isMapLoaded = os.path.exists(self.saved_map_path)
-    self.end_point = (42.458867036514775, -72.57851963471636)
 
 
   def distance(self, lat1, long1, lat2, long2):
+    """Returns distance between given coordinates"""
     radius = 6371008.8
     lat1, long1 = np.radians(lat1), np.radians(long1)
     lat2, long2 = np.radians(lat2), np.radians(long2)
@@ -27,6 +27,7 @@ class Graph:
     return radius * temp2
   
   def get_distance_from_dest(self, dest_node):
+    """Returns the graph with distance from destination node for each node in the graph"""
     end_node = self.G.nodes[ox.get_nearest_node(self.G, point=dest_node)]
     for node, data in self.G.nodes(data=True):
         node_lat = self.G.nodes[node]['x']
@@ -37,7 +38,7 @@ class Graph:
     return self.G
   
   def get_graph(self, dest_node):
-
+    """Returns the graph"""
     if not self.isMapLoaded:
       print("Fetching the Map")
       self.G = ox.graph_from_point(self.initial_point, dist=20000, network_type='walk')

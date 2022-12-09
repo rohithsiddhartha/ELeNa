@@ -1,7 +1,7 @@
 #Implement view
 
 from flask import Flask, render_template, request, jsonify
-from datetime import datetime
+# from datetime import datetime
 
 from src.view.observer import Observer
 from .. import app
