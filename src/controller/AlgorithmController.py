@@ -37,6 +37,9 @@ class AlgorithmController():
         self.scaling_factor = 100
         self.model = AlgorithmModel()
 
+    # def heuristic_calc(self, a, b):
+    #     return self.graph.nodes[a]['dist_from_dest'] * 1 / self.scaling_factor
+
     def calculate_elevation_path(self, Graph, source, target, heuristic, weight):
         """
         This method finds the path with nodes
@@ -46,6 +49,11 @@ class AlgorithmController():
             Graph: area map as graph with all the points as nodes
             source: starting point
             destination: final destination point
+            heuristic: heuristic function
+            weight: If it is callable, `weight` itself is returned. If it is a string,
+                    it is assumed to be the name of the edge attribute that represents
+                    the weight of an edge. In that case, a function is returned that
+                    gets the edge weight according to the specified edge attribute.
         """
 
         if source not in Graph or target not in Graph:
@@ -62,6 +70,7 @@ class AlgorithmController():
         visited_parent = {}  # storing parent of a visited nodes
         while path_queue:
             _, __, current_node, distance, parent_node = heappop(path_queue)
+            # if we reached the destination node
             if current_node == target:
                 node = parent_node
                 path = [current_node]
@@ -71,6 +80,7 @@ class AlgorithmController():
                 path.reverse()
                 return path
 
+            # if node is already visited
             if current_node in visited_parent:
                 if visited_parent[current_node] is None:
                     continue
@@ -78,6 +88,7 @@ class AlgorithmController():
                 if qcost < distance:
                     continue
 
+            # if node is not visited so far, setting appropriate values corresponding to that node
             visited_parent[current_node] = parent_node
             for neighbor, w in Graph[current_node].items():
                 cost = distance + weight(current_node, neighbor, w)
@@ -96,6 +107,10 @@ class AlgorithmController():
     def fetch_route_with_elevation(self):
         """
         This method finds the elevated path in the graph
+
+        Returns
+        -------
+            The Elevated Route Model
         """
 
         if self.elevation_strategy == MINIMIZE:
