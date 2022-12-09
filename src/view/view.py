@@ -9,14 +9,17 @@ import json
 
 
 class MapView(Observer):
-
+	"""Class for the map view"""
+	
 	def __init__(self):
+		"""Initialize the map view"""
 		super().__init__()
 		self.route_coordinates = None
 		self.total_distance = None
 		self.elevation = None
 
 	def update(self, path_model):
+		"""Update the map view"""
 		self.route_coordinates = path_model.get_path()
 		self.total_distance = path_model.get_distance()
 		
@@ -24,5 +27,6 @@ class MapView(Observer):
 			self.elevation = path_model.get_gain()
 
 	def get_route_params(self):
+		"""Get the route parameters"""
 		return (self.route_coordinates, self.total_distance, self.elevation)
         
