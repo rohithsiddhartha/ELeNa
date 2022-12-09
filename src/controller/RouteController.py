@@ -58,9 +58,9 @@ class RouteController:
         """
 
         # Printing the path details
-        print("Total Route Distance: " + str(path.get_distance()))
+        print("Total Route Distance: " + str(float(path.get_distance()/1609.344)) + " miles")
         print("Elevation Gain of the Route: " + str(path.get_gain()))
-        print("Algorithm Used to Calculate Route: " + path.get_algo())
+        # print("Algorithm Used to Calculate Route: " + path.get_algo())
 
     def calculate_final_route(self, start_point, end_point, deviation_percent, minmax_elev_gain, map_view):
         """
