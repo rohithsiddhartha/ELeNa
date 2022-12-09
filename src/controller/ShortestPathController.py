@@ -1,8 +1,8 @@
 import networkx as nx
 import osmnx as ox
-from src.Model.AlgorithmModel import AlgorithmModel
-from src.Model.PathModel import PathModel
-from src.Model.Observable import Observable
+from src.model.algo_model import AlgorithmModel
+from src.model.path_model import Path
+from src.model.observable import Observable
 
 ELEVATION_GAIN = "elevation_gain"
 SHORTEST = "Shortest Route"
