@@ -105,13 +105,7 @@ class AlgorithmController():
 
         self.elevation_path = nx.shortest_path(self.graph, source=self.origin, target=self.destination,
                                                weight=LENGTH)
-
-        if heuristic is None:
-            def heuristic(u, v):
-                return 0
-
-        heurestic_val = heuristic
-
+        heurestic_val = None
         while self.scaling_factor < 10000:
             elevation_path = self.calculate_elevation_path(self.graph, source=self.origin, target=self.destination, heuristic=heurestic_val,
                                                            weight=lambda u, v, d: math.exp(minmax * d[0][LENGTH] * (d[0]['grade'] + d[0]['grade_abs']) / 2)
