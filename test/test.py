@@ -44,9 +44,39 @@ def test_get_shortest_path():
     shortest_path = controller.get_shortest_path(startpt,endpt)
     assert abs(shortest_path.get_distance()-11956.737999999996)<=100
 
+@Test("")
+def test_calculate_elevation_path():
+    print("# Testing calculate_elevation_path method in AlgorithmsController....")
+    startpt=(42.3732216,-72.5198537)
+    endpt =(42.4663727,-72.5795115)
+    G = Graph().get_graph(endpt)
+    s_controller = ShortestPathController(G)
+    shortest_path = s_controller.get_shortest_path(startpt,endpt)
+    controller = AlgorithmController(G,shortest_path.get_distance(),float(150) / 100.0,"max",shortest_path.get_origin(),shortest_path.get_destination(),1,2)
+    elevation_path=controller.calculate_elevation_path(G, shortest_path.get_origin(), shortest_path.get_destination(), None,weight=lambda u, v, d:
+                                              math.exp(1 * d[0]['length'] * (
+                                                          d[0]['grade'] + d[0]['grade_abs']) / 2)
+                                              + math.exp((1 / 100) * d[0]['length']))
+    print("elev path",elevation_path[0])
+    assert elevation_path[0]==66704169
+    assert elevation_path[1]==6302552856
+
+@Test("")
+def test_fetch_elevation():
+    print("# Testing fetch_route_with_elevation method in AlgorithmsController....")
+    startpt=(42.3732216,-72.5198537)
+    endpt =(42.4663727,-72.5795115)
+    G = Graph().get_graph(endpt)
+    s_controller = ShortestPathController(G)
+    shortest_path = s_controller.get_shortest_path(startpt,endpt)
+    controller = AlgorithmController(G,shortest_path.get_distance(),float(150) / 100.0,"max",shortest_path.get_origin(),shortest_path.get_destination(),1,2)
+    elevation_path=controller.fetch_route_with_elevation()
+    assert abs(elevation_path.get_gain()-45.797)<=100
 
 if __name__ == "__main__":
     start, end = (42.3732216,-72.5198537), (42.4663727,-72.5795115)
     # Tests #####
     test_get_graph(end)
     test_get_shortest_path()
+    test_calculate_elevation_path()
+    test_fetch_elevation()
