@@ -73,6 +73,20 @@ def test_fetch_elevation():
     elevation_path=controller.fetch_route_with_elevation()
     assert abs(elevation_path.get_gain()-45.797)<=100
 
+
+@Test("")
+def test_calculate_final_route():
+    print("# Testing calculate_final_route method in RouteController....")
+    startpt=(42.3732216,-72.5198537)
+    endpt =(42.4663727,-72.5795115)
+    controller = RouteController()
+    view = MapView()
+    controller.calculate_final_route(startpt,endpt,150,1,view)
+    elevation_path = controller.elevation_path
+    distance = elevation_path.get_distance()/1609.344
+    assert abs(distance-8.71)<=100
+    assert abs(elevation_path.get_gain()-45.79)<=100
+
 if __name__ == "__main__":
     start, end = (42.3732216,-72.5198537), (42.4663727,-72.5795115)
     # Tests #####
@@ -80,3 +94,4 @@ if __name__ == "__main__":
     test_get_shortest_path()
     test_calculate_elevation_path()
     test_fetch_elevation()
+    test_calculate_final_route()
