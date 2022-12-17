@@ -18,14 +18,17 @@ python3 -m venv .venv
 
 source .venv/bin/activate
 
+export FLASK_ENV=development
+export FLASK_APP=src/App.py
+
 ### Windows
 python3 -m venv .venv
 
 .venv\scripts\activate
 
 set FLASK_ENV=development
-
 set FLASK_APP=src/App.py
+
 
 ## Install dependencies / requirements using the command
 * pip3 install -r requirements.txt
